@@ -11,7 +11,7 @@ import { Home, Api, Menu, StatusData } from "./Pages";
 import SignalsPage from "./SignalsPage";
 import HistoryPage from "./HistoryPage";
 import SignalPackageAgents from "./SignalPackageAgents";
-import SweepAlerts, { useSweepFeed } from "./SweepAlerts";
+import SweepAlerts, { ENGINE_LABEL, useSweepFeed } from "./SweepAlerts";
 import DerivTradeTypes from "./DerivTradeTypes";
 import { DEFAULT_DERIV_TYPE, DERIV_TYPES, derivTypeOf } from "./derivTypes";
 import { apiFetch } from "./api";
@@ -85,7 +85,7 @@ export default function App() {
   const wsBase = bridge.startsWith("ws") ? bridge : `${wsProto}://${bridge}`;
 
   // Wick sweep alerts from the 16 agents: toast + Menu badge from any tab, screenshots on the Menu tab.
-  const sweep = useSweepFeed(http, (a) => setToast(`${a.side} setup${a.ok ? "" : " (skipped)"} on ${a.name}. Open Menu to see it`));
+  const sweep = useSweepFeed(http, (a) => setToast(`${a.side} ${ENGINE_LABEL[a.engine]}${a.ok ? "" : " (skipped)"} on ${a.name}. Open Menu to see it`));
   useEffect(() => { if (tab === "menu") sweep.markSeen(); }, [tab, sweep.lastId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Status + asset list from Deriv
@@ -228,10 +228,6 @@ export default function App() {
       )}
 
       <main>
-// In App.tsx, update:
-import HistoryPage from "./HistoryPage";
-// ...
-
         {tab === "home" && <Home status={status} brokerName="Deriv" onOpenChart={() => go("chart")} onSwitchAccount={switchAccount} onShowHistory={() => setTab("history")} />}
         {tab === "history" && <HistoryPage apiBase={http} onBack={() => setTab("home")} />}
 

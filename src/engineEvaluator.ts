@@ -1,3 +1,5 @@
+import { detectContinuation, detectMomentum, detectWickSweep } from './sweepEngines';
+
 export interface CandleData {
   time: number;
   open: number;
@@ -17,6 +19,8 @@ export interface EngineResultData {
   sweep: { side: 'BUY' | 'SELL'; reasons: string[] } | null;
   indicators: { side: 'BUY' | 'SELL'; strategies: string[]; count: number; info: Record<string, number> } | null;
   pattern: { side: 'BUY' | 'SELL'; patterns: string[]; counted: boolean } | null;
+  continuation?: { side: 'BUY' | 'SELL'; reasons: string[] } | null;   // sweep + 2 same-colour candles: trade the next open
+  momentum?: { side: 'BUY' | 'SELL'; reasons: string[] } | null;       // 3 strong candles in a row: trade the next open
   reasons: string[];
   rsi?: number;
   trend?: string;
@@ -44,78 +48,17 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
   const cur = cs[lastIdx];
   const prev = cs[lastIdx - 1];
 
-  // 1. Valid Liquidity Sweep Engine Check (4 Precise Chart Setup Patterns)
-  let sweep: { side: 'BUY' | 'SELL'; reasons: string[] } | null = null;
-  if (prev && cur) {
-    const isPrevGreen = prev.close >= prev.open;
-    const isPrevRed = prev.close < prev.open;
-    const isCurGreen = cur.close >= cur.open;
-    const isCurRed = cur.close < cur.open;
+  // 1. Wick sweep: your original rule (same code the screenshots use). A sweep the context check SKIPS gets no vote.
+  const ws = detectWickSweep(cs, lastIdx);
+  const sweep: { side: 'BUY' | 'SELL'; reasons: string[] } | null = ws && ws.ok
+    ? { side: ws.side, reasons: [ws.side === 'BUY' ? 'Green candle wicked below the previous low, body held above it' : 'Red candle wicked above the previous high, body stayed below it', ...ws.notes] }
+    : null;
 
-    const prevLowerWick = Math.min(prev.open, prev.close) - prev.low;
-    const prevUpperWick = prev.high - Math.max(prev.open, prev.close);
-    const curLowerWick = Math.min(cur.open, cur.close) - cur.low;
-    const curUpperWick = cur.high - Math.max(cur.open, cur.close);
-
-    const priceScale = Math.max(0.00001, cur.close);
-    const equalLows = Math.abs(cur.low - prev.low) / priceScale <= 0.0012;
-    const equalHighs = Math.abs(cur.high - prev.high) / priceScale <= 0.0012;
-
-    // Pattern 1: SELL - Red Candle Sweeps High of Green (Body closes inside previous high)
-    if (isPrevGreen && isCurRed && cur.high > prev.high && cur.close <= prev.high) {
-      sweep = {
-        side: 'SELL',
-        reasons: [
-          'Pattern 1: Red candle swept High of previous Green candle',
-          'Body closed back inside previous high (Valid Bearish Liquidity Sweep)'
-        ]
-      };
-    }
-    // Pattern 2: BUY - Green Candle Sweeps Low of Red (Body closes inside previous low)
-    else if (isPrevRed && isCurGreen && cur.low < prev.low && cur.close >= prev.low) {
-      sweep = {
-        side: 'BUY',
-        reasons: [
-          'Pattern 2: Green candle swept Low of previous Red candle',
-          'Body closed back inside previous low (Valid Bullish Liquidity Sweep)'
-        ]
-      };
-    }
-    // Pattern 3: BUY - Both Candles Wick Below at Same Level (Equal Lows / Dual Wick Sweep)
-    else if ((equalLows || cur.low <= prev.low) && curLowerWick > 0 && prevLowerWick > 0 && (isCurGreen || cur.close >= prev.low)) {
-      sweep = {
-        side: 'BUY',
-        reasons: [
-          'Pattern 3: Both candles wicked below at same level (Equal Lows Sweep)',
-          'Lower liquidity swept & body closed above support zone'
-        ]
-      };
-    }
-    // Pattern 4: SELL - Both Candles Wick Above at Same Level (Equal Highs / Dual Wick Sweep)
-    else if ((equalHighs || cur.high >= prev.high) && curUpperWick > 0 && prevUpperWick > 0 && (isCurRed || cur.close <= prev.high)) {
-      sweep = {
-        side: 'SELL',
-        reasons: [
-          'Pattern 4: Both candles wicked above at same level (Equal Highs Sweep)',
-          'Upper liquidity swept & body closed below resistance zone'
-        ]
-      };
-    }
-    // General Bullish Sweep: Low pierced & body closed inside
-    else if (cur.low < prev.low && cur.close >= prev.low && isCurGreen) {
-      sweep = {
-        side: 'BUY',
-        reasons: ['Bullish wick sweep of previous low', 'Body closed inside prior candle range']
-      };
-    }
-    // General Bearish Sweep: High pierced & body closed inside
-    else if (cur.high > prev.high && cur.close <= prev.high && isCurRed) {
-      sweep = {
-        side: 'SELL',
-        reasons: ['Bearish wick sweep of previous high', 'Body closed inside prior candle range']
-      };
-    }
-  }
+  // 1b. Sweep continuation (sweep + 2 same-colour candles) and 1c. momentum (3 strong candles). Both trade the NEXT candle's open.
+  const co = detectContinuation(cs, lastIdx);
+  const continuation = co && co.ok ? { side: co.side, reasons: co.notes } : null;
+  const mo = detectMomentum(cs, lastIdx);
+  const momentum = mo ? { side: mo.side, reasons: mo.notes } : null;
 
   // 2. Technical Indicators Engine (RSI, EMA, Bollinger, CCI)
   let indSide: 'BUY' | 'SELL' | null = null;
@@ -198,6 +141,8 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
   // Decision & Confidence logic
   const agreeSides: string[] = [];
   if (sweep) agreeSides.push(sweep.side);
+  if (continuation) agreeSides.push(continuation.side);
+  if (momentum) agreeSides.push(momentum.side);
   if (indicators) agreeSides.push(indicators.side);
   if (pattern) agreeSides.push(pattern.side);
 
@@ -213,6 +158,8 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
       sweep: null,
       indicators: null,
       pattern: null,
+      continuation: null,
+      momentum: null,
       reasons: ['Scanning live price action']
     };
   }
@@ -233,6 +180,8 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
       sweep,
       indicators,
       pattern,
+      continuation,
+      momentum,
       reasons: ['Engines disagree on direction']
     };
   }
@@ -246,6 +195,8 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
 
   const reasons: string[] = [];
   if (sweep) reasons.push(`Wick Sweep (${side}): ${sweep.reasons.join(', ')}`);
+  if (continuation) reasons.push(`Sweep Continuation (${side}): ${continuation.reasons.join(', ')}`);
+  if (momentum) reasons.push(`Momentum (${side}): ${momentum.reasons.join(', ')}`);
   if (indicators) reasons.push(`Indicators (${side}): ${indicators.strategies.join(', ')}`);
   if (pattern) reasons.push(`Pattern (${side}): ${pattern.patterns.join(', ')}`);
 
@@ -262,6 +213,8 @@ export function evaluateEngines(candles: CandleData[], tf = 60, minInd = 1): Eng
     sweep,
     indicators,
     pattern,
+    continuation,
+    momentum,
     reasons,
     rsi: Number(rsi.toFixed(1)),
     trend

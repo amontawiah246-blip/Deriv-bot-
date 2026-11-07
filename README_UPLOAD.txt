@@ -1,3 +1,16 @@
+THREE SETUP ENGINES + CORRECTED SCREENSHOTS (Menu tab, agent cards)
+- src/sweepEngines.ts   the three engines. 1) Wick sweep: your original rule, ported 1:1 and checked against the Python engine on
+                        ~1,100 signals. 2) Sweep continuation: sweeper + TWO more candles closing the same colour, then trade the
+                        NEXT candle open in the same direction. 3) Momentum: three strong-bodied candles in a row, no sweep needed,
+                        trade the next candle open (needs big bodies; there is no separate "fake" rule).
+- src/sweepWatcher.ts / sweepWatcherCore.ts   watch every agent on CLOSED candles only (broker clock). A screenshot is posted ONLY when an
+                        engine really finds a setup. The old filler "snapshot" charts (RSI/Flow text, "Watching closed market candles") are gone.
+- src/sweepChart.ts     each engine draws what it found. Continuation/momentum show the arrow in the empty slot where the next candle opens.
+- src/engineEvaluator.ts + server.ts   the trading signal path now uses the same corrected sweep rule plus the two new engines,
+                        and /api/engines evaluates closed candles only.
+- Menu: filter by engine; each alert shows its engine and "Trade opens on the next candle".
+- Tests:  npx tsx --test src/*.test.ts
+
 NEW: WICK SWEEP ALERTS (Menu tab)
 - The 16 agents' markets are watched by the wick sweep engine on CLOSED candles. The moment a setup forms, a chart screenshot
   (same look as your Valid Buy / Valid Sell Setup images) appears in Menu, with a badge on the Menu button and a toast.

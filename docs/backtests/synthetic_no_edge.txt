@@ -1,0 +1,474 @@
+*** SYNTHETIC DATA: this checks the machinery only. It says nothing about any real market. ***
+
+BACKTEST  tf=300s  expiries=300/600/900s  payout=0.92  cost=0  split train/val/test=0.6/0.2/0.2
+  SYNTH1: 30000 candles 2025-10-09 .. 2026-01-21
+  SYNTH2: 30000 candles 2025-10-09 .. 2026-01-21
+  SYNTH3: 30000 candles 2025-10-09 .. 2026-01-21
+  SYNTH4: 30000 candles 2025-10-09 .. 2026-01-21
+  SYNTH5: 30000 candles 2025-10-09 .. 2026-01-21
+Breakeven win rate at this payout/cost: 52.08%
+Conflicts: Engine 5 and Engine 6 on the same candle: both fired 355, same side 355, opposite 0 (cannot disagree on one candle by construction)
+Conflicts: opposite-side signals whose trades would be open together: expiry 300s: 0, expiry 600s: 0, expiry 900s: 0
+
+=== EXPIRY 300s ===
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+e5_continuation [all]                5556   2771   2785   49.9%   50.1%  -0.042   270.0  [48.6%..51.2%] below   signals=5556 skipped(open)=0
+   train                             3364   1670   1694   49.6%   50.4%  -0.047   167.0  [48.0%..51.3%] below
+   validation                        1110    542    568   48.8%   51.2%  -0.062    69.4  [45.9%..51.8%] below
+   test                              1082    559    523   51.7%   48.3%  -0.008    50.3  [48.7%..54.6%] inconclusive
+e5_base_immediate [all]             22807  11437  11370   50.1%   49.9%  -0.037   860.0  [49.5%..50.8%] below   signals=22807 skipped(open)=0
+   train                            13705   6885   6820   50.2%   49.8%  -0.035   515.0  [49.4%..51.1%] below
+   validation                        4581   2272   2309   49.6%   50.4%  -0.048   263.2  [48.1%..51.0%] below
+   test                              4521   2280   2241   50.4%   49.6%  -0.032   163.6  [49.0%..51.9%] below
+e5_base_plus1 [all]                 11437   5555   5882   48.6%   51.4%  -0.067   777.2  [47.7%..49.5%] below   signals=11437 skipped(open)=0
+   train                             6884   3363   3521   48.9%   51.1%  -0.062   435.2  [47.7%..50.0%] below
+   validation                        2272   1110   1162   48.9%   51.1%  -0.062   149.7  [46.8%..50.9%] below
+   test                              2281   1082   1199   47.4%   52.6%  -0.089   221.7  [45.4%..49.5%] below
+e6_momentum [all]                    6133   3055   3078   49.8%   50.2%  -0.044   277.9  [48.6%..51.1%] below   signals=6133 skipped(open)=0
+   train                             3752   1891   1861   50.4%   49.6%  -0.032   138.7  [48.8%..52.0%] below
+   validation                        1199    583    616   48.6%   51.4%  -0.066   100.0  [45.8%..51.5%] below
+   test                              1182    581    601   49.2%   50.8%  -0.056    90.7  [46.3%..52.0%] below
+e6_all3 [all]                        1365    688    677   50.4%   49.6%  -0.032    50.2  [47.8%..53.1%] inconclusive   signals=1365 skipped(open)=0
+   train                              843    436    407   51.7%   48.3%  -0.007    34.9  [48.3%..55.1%] inconclusive
+   validation                         275    138    137   50.2%   49.8%  -0.037    14.5  [44.3%..56.0%] inconclusive
+   test                               247    114    133   46.2%   53.8%  -0.114    35.2  [40.0%..52.4%] inconclusive
+e6_two_plus_one [all]                4768   2367   2401   49.6%   50.4%  -0.047   237.1  [48.2%..51.1%] below   signals=4768 skipped(open)=0
+   train                             2909   1455   1454   50.0%   50.0%  -0.040   132.6  [48.2%..51.8%] below
+   validation                         924    445    479   48.2%   51.8%  -0.075    90.3  [45.0%..51.4%] below
+   test                               935    467    468   49.9%   50.1%  -0.041    56.2  [46.7%..53.1%] inconclusive
+e6_grid_r55_m1.0 [all]               8856   4444   4412   50.2%   49.8%  -0.037   332.1  [49.1%..51.2%] below   signals=8856 skipped(open)=0
+   train                             5385   2697   2688   50.1%   49.9%  -0.038   220.3  [48.7%..51.4%] below
+   validation                        1747    893    854   51.1%   48.9%  -0.019    85.2  [48.8%..53.5%] inconclusive
+   test                              1724    854    870   49.5%   50.5%  -0.049    99.4  [47.2%..51.9%] below
+e6_grid_r55_m1.2 [all]               7806   3926   3880   50.3%   49.7%  -0.034   280.7  [49.2%..51.4%] below   signals=7806 skipped(open)=0
+   train                             4752   2404   2348   50.6%   49.4%  -0.029   151.8  [49.2%..52.0%] below
+   validation                        1557    795    762   51.1%   48.9%  -0.020    78.5  [48.6%..53.5%] inconclusive
+   test                              1497    727    770   48.6%   51.4%  -0.068   119.8  [46.0%..51.1%] below
+e6_grid_r55_m1.5 [all]               5902   2974   2928   50.4%   49.6%  -0.033   209.2  [49.1%..51.7%] below   signals=5902 skipped(open)=0
+   train                             3601   1829   1772   50.8%   49.2%  -0.025   120.5  [49.2%..52.4%] inconclusive
+   validation                        1173    595    578   50.7%   49.3%  -0.026    54.8  [47.9%..53.6%] inconclusive
+   test                              1128    550    578   48.8%   51.2%  -0.064    91.3  [45.9%..51.7%] below
+e6_grid_r65_m1.0 [all]               6857   3432   3425   50.1%   49.9%  -0.039   276.7  [48.9%..51.2%] below   signals=6857 skipped(open)=0
+   train                             4196   2106   2090   50.2%   49.8%  -0.036   170.4  [48.7%..51.7%] below
+   validation                        1322    654    668   49.5%   50.5%  -0.050    89.6  [46.8%..52.2%] inconclusive
+   test                              1339    672    667   50.2%   49.8%  -0.036    68.7  [47.5%..52.9%] inconclusive
+e6_grid_r65_m1.2 [all]               6133   3055   3078   49.8%   50.2%  -0.044   277.9  [48.6%..51.1%] below   signals=6133 skipped(open)=0
+   train                             3752   1891   1861   50.4%   49.6%  -0.032   138.7  [48.8%..52.0%] below
+   validation                        1199    583    616   48.6%   51.4%  -0.066   100.0  [45.8%..51.5%] below
+   test                              1182    581    601   49.2%   50.8%  -0.056    90.7  [46.3%..52.0%] below
+e6_grid_r65_m1.5 [all]               4833   2430   2403   50.3%   49.7%  -0.035   191.4  [48.9%..51.7%] below   signals=4833 skipped(open)=0
+   train                             2987   1519   1468   50.9%   49.1%  -0.024   101.3  [49.1%..52.6%] inconclusive
+   validation                         936    461    475   49.3%   50.7%  -0.054    60.5  [46.1%..52.5%] inconclusive
+   test                               910    450    460   49.5%   50.5%  -0.051    67.1  [46.2%..52.7%] inconclusive
+e6_grid_r75_m1.0 [all]               4312   2169   2143   50.3%   49.7%  -0.034   156.8  [48.8%..51.8%] below   signals=4312 skipped(open)=0
+   train                             2655   1350   1305   50.8%   49.2%  -0.024    88.2  [48.9%..52.7%] inconclusive
+   validation                         824    410    414   49.8%   50.2%  -0.045    49.0  [46.4%..53.2%] inconclusive
+   test                               833    409    424   49.1%   50.9%  -0.057    57.4  [45.7%..52.5%] inconclusive
+e6_grid_r75_m1.2 [all]               3919   1970   1949   50.3%   49.7%  -0.035   151.0  [48.7%..51.8%] below   signals=3919 skipped(open)=0
+   train                             2408   1236   1172   51.3%   48.7%  -0.014    68.9  [49.3%..53.3%] inconclusive
+   validation                         761    373    388   49.0%   51.0%  -0.059    51.6  [45.5%..52.6%] inconclusive
+   test                               750    361    389   48.1%   51.9%  -0.076    64.8  [44.6%..51.7%] below
+e6_grid_r75_m1.5 [all]               3216   1612   1604   50.1%   49.9%  -0.038   132.7  [48.4%..51.9%] below   signals=3216 skipped(open)=0
+   train                             1990   1011    979   50.8%   49.2%  -0.025    72.2  [48.6%..53.0%] inconclusive
+   validation                         624    316    308   50.6%   49.4%  -0.028    30.6  [46.7%..54.5%] inconclusive
+   test                               602    285    317   47.3%   52.7%  -0.091    61.8  [43.4%..51.3%] below
+ctl_streak3 [all]                   37420  18719  18701   50.0%   50.0%  -0.040  1510.0  [49.5%..50.5%] below   signals=37420 skipped(open)=0
+   train                            22376  11169  11207   49.9%   50.1%  -0.042   953.9  [49.3%..50.6%] below
+   validation                        7600   3821   3779   50.3%   49.7%  -0.035   275.4  [49.2%..51.4%] below
+   test                              7444   3729   3715   50.1%   49.9%  -0.038   305.6  [49.0%..51.2%] below
+
+=== EXPIRY 600s ===
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+e5_continuation [all]                5555   2801   2754   50.4%   49.6%  -0.032   186.4  [49.1%..51.7%] below   signals=5556 skipped(open)=0
+   train                             3364   1701   1663   50.6%   49.4%  -0.029   110.9  [48.9%..52.3%] inconclusive
+   validation                        1110    546    564   49.2%   50.8%  -0.056    70.9  [46.3%..52.1%] inconclusive
+   test                              1081    554    527   51.2%   48.8%  -0.016    36.8  [48.3%..54.2%] inconclusive
+e5_base_immediate [all]             20678  10315  10363   49.9%   50.1%  -0.042   906.2  [49.2%..50.6%] below   signals=22807 skipped(open)=2128
+   train                            12413   6199   6214   49.9%   50.1%  -0.041   528.3  [49.1%..50.8%] below
+   validation                        4151   2047   2104   49.3%   50.7%  -0.053   238.9  [47.8%..50.8%] below
+   test                              4112   2067   2045   50.3%   49.7%  -0.035   159.0  [48.7%..51.8%] below
+e5_base_plus1 [all]                 11437   5644   5793   49.3%   50.7%  -0.053   606.9  [48.4%..50.3%] below   signals=11437 skipped(open)=0
+   train                             6884   3449   3435   50.1%   49.9%  -0.038   270.2  [48.9%..51.3%] below
+   validation                        2271   1113   1158   49.0%   51.0%  -0.059   135.6  [47.0%..51.1%] below
+   test                              2281   1082   1199   47.4%   52.6%  -0.089   226.0  [45.4%..49.5%] below
+e6_momentum [all]                    4851   2389   2462   49.2%   50.8%  -0.054   271.9  [47.8%..50.7%] below   signals=6133 skipped(open)=1282
+   train                             2956   1456   1500   49.3%   50.7%  -0.054   182.2  [47.5%..51.1%] below
+   validation                         957    455    502   47.5%   52.5%  -0.087    94.6  [44.4%..50.7%] below
+   test                               938    478    460   51.0%   49.0%  -0.022    39.2  [47.8%..54.1%] inconclusive
+e6_all3 [all]                        1193    566    627   47.4%   52.6%  -0.089   114.0  [44.6%..50.3%] below   signals=1365 skipped(open)=172
+   train                              730    357    373   48.9%   51.1%  -0.061    59.1  [45.3%..52.5%] inconclusive
+   validation                         242    110    132   45.5%   54.5%  -0.127    36.2  [39.3%..51.8%] below
+   test                               221     99    122   44.8%   55.2%  -0.140    40.8  [38.4%..51.4%] below
+e6_two_plus_one [all]                4046   2013   2033   49.8%   50.2%  -0.045   215.0  [48.2%..51.3%] below   signals=4768 skipped(open)=722
+   train                             2464   1212   1252   49.2%   50.8%  -0.056   157.3  [47.2%..51.2%] below
+   validation                         792    386    406   48.7%   51.3%  -0.064    73.0  [45.3%..52.2%] inconclusive
+   test                               790    415    375   52.5%   47.5%  +0.009    18.6  [49.0%..56.0%] inconclusive
+e6_grid_r55_m1.0 [all]               6835   3409   3426   49.9%   50.1%  -0.042   294.4  [48.7%..51.1%] below   signals=8856 skipped(open)=2021
+   train                             4140   2062   2078   49.8%   50.2%  -0.044   193.4  [48.3%..51.3%] below
+   validation                        1349    669    680   49.6%   50.4%  -0.048    85.4  [46.9%..52.3%] inconclusive
+   test                              1346    678    668   50.4%   49.6%  -0.033    69.6  [47.7%..53.0%] inconclusive
+e6_grid_r55_m1.2 [all]               6063   3008   3055   49.6%   50.4%  -0.047   292.4  [48.4%..50.9%] below   signals=7806 skipped(open)=1743
+   train                             3669   1825   1844   49.7%   50.3%  -0.045   177.4  [48.1%..51.4%] below
+   validation                        1209    600    609   49.6%   50.4%  -0.047    82.4  [46.8%..52.4%] inconclusive
+   test                              1185    583    602   49.2%   50.8%  -0.055    87.8  [46.4%..52.0%] below
+e6_grid_r55_m1.5 [all]               4649   2281   2368   49.1%   50.9%  -0.058   273.1  [47.6%..50.5%] below   signals=5902 skipped(open)=1253
+   train                             2831   1401   1430   49.5%   50.5%  -0.050   150.7  [47.6%..51.3%] below
+   validation                         917    455    462   49.6%   50.4%  -0.047    59.8  [46.4%..52.8%] inconclusive
+   test                               901    425    476   47.2%   52.8%  -0.094    99.8  [43.9%..50.4%] below
+e6_grid_r65_m1.0 [all]               5394   2675   2719   49.6%   50.4%  -0.048   271.4  [48.3%..50.9%] below   signals=6857 skipped(open)=1463
+   train                             3296   1623   1673   49.2%   50.8%  -0.055   202.7  [47.5%..50.9%] below
+   validation                        1047    505    542   48.2%   51.8%  -0.074    86.0  [45.2%..51.3%] below
+   test                              1051    547    504   52.0%   48.0%  -0.001    28.8  [49.0%..55.1%] inconclusive
+e6_grid_r65_m1.2 [all]               4851   2389   2462   49.2%   50.8%  -0.054   271.9  [47.8%..50.7%] below   signals=6133 skipped(open)=1282
+   train                             2956   1456   1500   49.3%   50.7%  -0.054   182.2  [47.5%..51.1%] below
+   validation                         957    455    502   47.5%   52.5%  -0.087    94.6  [44.4%..50.7%] below
+   test                               938    478    460   51.0%   49.0%  -0.022    39.2  [47.8%..54.1%] inconclusive
+e6_grid_r65_m1.5 [all]               3856   1874   1982   48.6%   51.4%  -0.067   262.0  [47.0%..50.2%] below   signals=4833 skipped(open)=977
+   train                             2380   1160   1220   48.7%   51.3%  -0.064   162.6  [46.7%..50.7%] below
+   validation                         749    361    388   48.2%   51.8%  -0.075    58.0  [44.6%..51.8%] below
+   test                               727    353    374   48.6%   51.4%  -0.068    66.6  [44.9%..52.2%] inconclusive
+e6_grid_r75_m1.0 [all]               3494   1725   1769   49.4%   50.6%  -0.052   187.4  [47.7%..51.0%] below   signals=4312 skipped(open)=818
+   train                             2142   1066   1076   49.8%   50.2%  -0.044   123.5  [47.7%..51.9%] below
+   validation                         675    324    351   48.0%   52.0%  -0.078    63.0  [44.3%..51.8%] below
+   test                               677    335    342   49.5%   50.5%  -0.050    46.5  [45.7%..53.2%] inconclusive
+e6_grid_r75_m1.2 [all]               3185   1572   1613   49.4%   50.6%  -0.052   172.9  [47.6%..51.1%] below   signals=3919 skipped(open)=734
+   train                             1946    973    973   50.0%   50.0%  -0.040   115.5  [47.8%..52.2%] inconclusive
+   validation                         626    301    325   48.1%   51.9%  -0.077    55.6  [44.2%..52.0%] below
+   test                               613    298    315   48.6%   51.4%  -0.067    50.8  [44.7%..52.6%] inconclusive
+e6_grid_r75_m1.5 [all]               2631   1291   1340   49.1%   50.9%  -0.058   153.7  [47.2%..51.0%] below   signals=3216 skipped(open)=585
+   train                             1622    811    811   50.0%   50.0%  -0.040    80.3  [47.6%..52.4%] inconclusive
+   validation                         511    254    257   49.7%   50.3%  -0.046    30.5  [45.4%..54.0%] inconclusive
+   test                               498    226    272   45.4%   54.6%  -0.129    69.8  [41.1%..49.8%] below
+ctl_streak3 [all]                   24980  12507  12473   50.1%   49.9%  -0.039   988.0  [49.4%..50.7%] below   signals=37420 skipped(open)=12439
+   train                            14960   7425   7535   49.6%   50.4%  -0.047   719.9  [48.8%..50.4%] below
+   validation                        5032   2536   2496   50.4%   49.6%  -0.032   181.4  [49.0%..51.8%] below
+   test                              4986   2544   2442   51.0%   49.0%  -0.020   131.3  [49.6%..52.4%] inconclusive
+
+=== EXPIRY 900s ===
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+e5_continuation [all]                5555   2742   2813   49.4%   50.6%  -0.052   309.3  [48.0%..50.7%] below   signals=5556 skipped(open)=0
+   train                             3364   1632   1732   48.5%   51.5%  -0.069   246.0  [46.8%..50.2%] below
+   validation                        1110    565    545   50.9%   49.1%  -0.023    43.6  [48.0%..53.8%] inconclusive
+   test                              1081    545    536   50.4%   49.6%  -0.032    59.2  [47.4%..53.4%] inconclusive
+e5_base_immediate [all]             18129   9121   9008   50.3%   49.7%  -0.034   661.9  [49.6%..51.0%] below   signals=22807 skipped(open)=4676
+   train                            10911   5506   5405   50.5%   49.5%  -0.031   371.7  [49.5%..51.4%] below
+   validation                        3631   1819   1812   50.1%   49.9%  -0.038   173.2  [48.5%..51.7%] below
+   test                              3586   1795   1791   50.1%   49.9%  -0.039   162.2  [48.4%..51.7%] below
+e5_base_plus1 [all]                 10601   5241   5360   49.4%   50.6%  -0.051   545.6  [48.5%..50.4%] below   signals=11437 skipped(open)=835
+   train                             6413   3213   3200   50.1%   49.9%  -0.038   265.8  [48.9%..51.3%] below
+   validation                        2090   1014   1076   48.5%   51.5%  -0.068   144.8  [46.4%..50.7%] below
+   test                              2096   1014   1082   48.4%   51.6%  -0.071   170.8  [46.2%..50.5%] below
+e6_momentum [all]                    4560   2249   2311   49.3%   50.7%  -0.053   263.5  [47.9%..50.8%] below   signals=6133 skipped(open)=1573
+   train                             2780   1352   1428   48.6%   51.4%  -0.066   200.7  [46.8%..50.5%] below
+   validation                         898    442    456   49.2%   50.8%  -0.055    71.4  [46.0%..52.5%] inconclusive
+   test                               882    455    427   51.6%   48.4%  -0.010    32.8  [48.3%..54.9%] inconclusive
+e6_all3 [all]                        1159    562    597   48.5%   51.5%  -0.069    86.0  [45.6%..51.4%] below   signals=1365 skipped(open)=206
+   train                              710    352    358   49.6%   50.4%  -0.048    53.3  [45.9%..53.2%] inconclusive
+   validation                         234    114    120   48.7%   51.3%  -0.065    20.4  [42.4%..55.1%] inconclusive
+   test                               215     96    119   44.7%   55.3%  -0.143    30.7  [38.2%..51.3%] below
+e6_two_plus_one [all]                3862   1923   1939   49.8%   50.2%  -0.044   217.5  [48.2%..51.4%] below   signals=4768 skipped(open)=906
+   train                             2351   1148   1203   48.8%   51.2%  -0.062   161.2  [46.8%..50.9%] below
+   validation                         756    373    383   49.3%   50.7%  -0.053    65.0  [45.8%..52.9%] inconclusive
+   test                               755    402    353   53.2%   46.8%  +0.022    20.2  [49.7%..56.8%] inconclusive
+e6_grid_r55_m1.0 [all]               6344   3165   3179   49.9%   50.1%  -0.042   291.2  [48.7%..51.1%] below   signals=8856 skipped(open)=2512
+   train                             3849   1908   1941   49.6%   50.4%  -0.048   198.2  [48.0%..51.2%] below
+   validation                        1253    612    641   48.8%   51.2%  -0.062    95.4  [46.1%..51.6%] below
+   test                              1242    645    597   51.9%   48.1%  -0.003    38.3  [49.2%..54.7%] inconclusive
+e6_grid_r55_m1.2 [all]               5651   2794   2857   49.4%   50.6%  -0.051   302.5  [48.1%..50.7%] below   signals=7806 skipped(open)=2155
+   train                             3428   1677   1751   48.9%   51.1%  -0.061   220.3  [47.2%..50.6%] below
+   validation                        1124    552    572   49.1%   50.9%  -0.057    84.1  [46.2%..52.0%] below
+   test                              1099    565    534   51.4%   48.6%  -0.013    40.6  [48.5%..54.4%] inconclusive
+e6_grid_r55_m1.5 [all]               4352   2145   2207   49.3%   50.7%  -0.054   245.0  [47.8%..50.8%] below   signals=5902 skipped(open)=1550
+   train                             2654   1302   1352   49.1%   50.9%  -0.058   163.9  [47.2%..51.0%] below
+   validation                         857    426    431   49.7%   50.3%  -0.046    54.5  [46.4%..53.0%] inconclusive
+   test                               841    417    424   49.6%   50.4%  -0.048    46.6  [46.2%..53.0%] inconclusive
+e6_grid_r65_m1.0 [all]               5048   2505   2543   49.6%   50.4%  -0.047   262.7  [48.2%..51.0%] below   signals=6857 skipped(open)=1809
+   train                             3092   1519   1573   49.1%   50.9%  -0.057   190.3  [47.4%..50.9%] below
+   validation                         977    478    499   48.9%   51.1%  -0.061    79.4  [45.8%..52.1%] below
+   test                               979    508    471   51.9%   48.1%  -0.004    34.5  [48.8%..55.0%] inconclusive
+e6_grid_r65_m1.2 [all]               4560   2249   2311   49.3%   50.7%  -0.053   263.5  [47.9%..50.8%] below   signals=6133 skipped(open)=1573
+   train                             2780   1352   1428   48.6%   51.4%  -0.066   200.7  [46.8%..50.5%] below
+   validation                         898    442    456   49.2%   50.8%  -0.055    71.4  [46.0%..52.5%] inconclusive
+   test                               882    455    427   51.6%   48.4%  -0.010    32.8  [48.3%..54.9%] inconclusive
+e6_grid_r65_m1.5 [all]               3635   1791   1844   49.3%   50.7%  -0.054   209.2  [47.6%..50.9%] below   signals=4833 skipped(open)=1198
+   train                             2241   1098   1143   49.0%   51.0%  -0.059   146.7  [46.9%..51.1%] below
+   validation                         706    350    356   49.6%   50.4%  -0.048    46.5  [45.9%..53.3%] inconclusive
+   test                               688    343    345   49.9%   50.1%  -0.043    36.4  [46.1%..53.6%] inconclusive
+e6_grid_r75_m1.0 [all]               3304   1670   1634   50.5%   49.5%  -0.030   111.1  [48.8%..52.2%] inconclusive   signals=4312 skipped(open)=1008
+   train                             2025   1034    991   51.1%   48.9%  -0.020    80.3  [48.9%..53.2%] inconclusive
+   validation                         636    327    309   51.4%   48.6%  -0.013    30.7  [47.5%..55.3%] inconclusive
+   test                               643    309    334   48.1%   51.9%  -0.077    56.1  [44.2%..51.9%] below
+e6_grid_r75_m1.2 [all]               3020   1531   1489   50.7%   49.3%  -0.027    92.3  [48.9%..52.5%] inconclusive   signals=3919 skipped(open)=899
+   train                             1841    939    902   51.0%   49.0%  -0.021    75.9  [48.7%..53.3%] inconclusive
+   validation                         592    306    286   51.7%   48.3%  -0.008    25.1  [47.7%..55.7%] inconclusive
+   test                               587    286    301   48.7%   51.3%  -0.065    45.5  [44.7%..52.8%] inconclusive
+e6_grid_r75_m1.5 [all]               2503   1261   1242   50.4%   49.6%  -0.033    88.2  [48.4%..52.3%] inconclusive   signals=3216 skipped(open)=713
+   train                             1539    783    756   50.9%   49.1%  -0.023    51.4  [48.4%..53.4%] inconclusive
+   validation                         483    253    230   52.4%   47.6%  +0.006    14.8  [47.9%..56.8%] inconclusive
+   test                               481    225    256   46.8%   53.2%  -0.102    53.5  [42.4%..51.2%] below
+ctl_streak3 [all]                   21421  10644  10777   49.7%   50.3%  -0.046  1019.8  [49.0%..50.4%] below   signals=37420 skipped(open)=15996
+   train                            12827   6302   6525   49.1%   50.9%  -0.057   750.5  [48.3%..50.0%] below
+   validation                        4344   2202   2142   50.7%   49.3%  -0.027   127.6  [49.2%..52.2%] inconclusive
+   test                              4247   2139   2108   50.4%   49.6%  -0.033   166.8  [48.9%..51.9%] below
+
+--- e5_continuation, expiry 300s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1669    829    840   49.7%   50.3%  -0.046    97.0  [47.3%..52.1%] below
+Late                                  681    350    331   51.4%   48.6%  -0.013    30.5  [47.6%..55.1%] inconclusive
+London                               1416    714    702   50.4%   49.6%  -0.032    80.9  [47.8%..53.0%] inconclusive
+NewYork                              1790    878    912   49.1%   50.9%  -0.058   114.1  [46.7%..51.4%] below
+--- e5_continuation, expiry 300s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                               1084    558    526   51.5%   48.5%  -0.012    27.2  [48.5%..54.4%] inconclusive
+SYNTH2                               1085    550    535   50.7%   49.3%  -0.027    41.5  [47.7%..53.7%] inconclusive
+SYNTH3                               1127    563    564   50.0%   50.0%  -0.041    60.5  [47.0%..52.9%] inconclusive
+SYNTH4                               1126    563    563   50.0%   50.0%  -0.040    75.7  [47.1%..52.9%] inconclusive
+SYNTH5                               1134    537    597   47.4%   52.6%  -0.091   126.8  [44.5%..50.3%] below
+
+--- e6_momentum, expiry 300s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1779    861    918   48.4%   51.6%  -0.071   142.4  [46.1%..50.7%] below
+Late                                  778    406    372   52.2%   47.8%  +0.002    25.7  [48.7%..55.7%] inconclusive
+London                               1549    744    805   48.0%   52.0%  -0.078   122.9  [45.6%..50.5%] below
+NewYork                              2027   1044    983   51.5%   48.5%  -0.011    59.4  [49.3%..53.7%] inconclusive
+--- e6_momentum, expiry 300s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                               1174    555    619   47.3%   52.7%  -0.092   113.0  [44.4%..50.1%] below
+SYNTH2                               1257    678    579   53.9%   46.1%  +0.036    20.0  [51.2%..56.7%] inconclusive
+SYNTH3                               1243    602    641   48.4%   51.6%  -0.070   102.1  [45.7%..51.2%] below
+SYNTH4                               1222    582    640   47.6%   52.4%  -0.086   109.6  [44.8%..50.4%] below
+SYNTH5                               1237    638    599   51.6%   48.4%  -0.010    42.2  [48.8%..54.4%] inconclusive
+
+--- e5_continuation, expiry 600s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1669    849    820   50.9%   49.1%  -0.023    64.3  [48.5%..53.3%] inconclusive
+Late                                  681    363    318   53.3%   46.7%  +0.023    22.4  [49.5%..57.0%] inconclusive
+London                               1415    711    704   50.2%   49.8%  -0.035    71.1  [47.6%..52.8%] inconclusive
+NewYork                              1790    878    912   49.1%   50.9%  -0.058   106.1  [46.7%..51.4%] below
+--- e5_continuation, expiry 600s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                               1084    549    535   50.6%   49.4%  -0.028    38.1  [47.7%..53.6%] inconclusive
+SYNTH2                               1085    561    524   51.7%   48.3%  -0.007    27.1  [48.7%..54.7%] inconclusive
+SYNTH3                               1127    579    548   51.4%   48.6%  -0.014    41.4  [48.5%..54.3%] inconclusive
+SYNTH4                               1125    573    552   50.9%   49.1%  -0.022    34.6  [48.0%..53.8%] inconclusive
+SYNTH5                               1134    539    595   47.5%   52.5%  -0.087   107.6  [44.6%..50.4%] below
+
+--- e6_momentum, expiry 600s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1424    685    739   48.1%   51.9%  -0.076   113.3  [45.5%..50.7%] below
+Late                                  621    318    303   51.2%   48.8%  -0.017    35.6  [47.3%..55.1%] inconclusive
+London                               1226    586    640   47.8%   52.2%  -0.082   108.4  [45.0%..50.6%] below
+NewYork                              1580    800    780   50.6%   49.4%  -0.028    60.9  [48.2%..53.1%] inconclusive
+--- e6_momentum, expiry 600s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                                927    451    476   48.7%   51.3%  -0.066    73.4  [45.4%..51.9%] below
+SYNTH2                                978    509    469   52.0%   48.0%  -0.001    32.3  [48.9%..55.2%] inconclusive
+SYNTH3                                994    470    524   47.3%   52.7%  -0.092   105.8  [44.2%..50.4%] below
+SYNTH4                                978    469    509   48.0%   52.0%  -0.079    79.7  [44.8%..51.1%] below
+SYNTH5                                974    490    484   50.3%   49.7%  -0.034    48.8  [47.2%..53.4%] inconclusive
+
+--- e5_continuation, expiry 900s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1669    814    855   48.8%   51.2%  -0.064   115.1  [46.4%..51.2%] below
+Late                                  681    351    330   51.5%   48.5%  -0.010    36.5  [47.8%..55.3%] inconclusive
+London                               1415    697    718   49.3%   50.7%  -0.054   100.1  [46.7%..51.9%] below
+NewYork                              1790    880    910   49.2%   50.8%  -0.056   104.1  [46.9%..51.5%] below
+--- e5_continuation, expiry 900s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                               1084    539    545   49.7%   50.3%  -0.045    63.9  [46.8%..52.7%] inconclusive
+SYNTH2                               1085    533    552   49.1%   50.9%  -0.057    67.6  [46.2%..52.1%] inconclusive
+SYNTH3                               1127    573    554   50.8%   49.2%  -0.024    42.6  [47.9%..53.8%] inconclusive
+SYNTH4                               1125    554    571   49.2%   50.8%  -0.055    69.1  [46.3%..52.2%] inconclusive
+SYNTH5                               1134    543    591   47.9%   52.1%  -0.081    98.2  [45.0%..50.8%] below
+
+--- e6_momentum, expiry 900s: by session ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+Asia                                 1342    666    676   49.6%   50.4%  -0.047    70.5  [47.0%..52.3%] inconclusive
+Late                                  582    293    289   50.3%   49.7%  -0.033    38.8  [46.3%..54.4%] inconclusive
+London                               1155    558    597   48.3%   51.7%  -0.072   111.4  [45.4%..51.2%] below
+NewYork                              1481    732    749   49.4%   50.6%  -0.051    83.7  [46.9%..52.0%] below
+--- e6_momentum, expiry 900s: by instrument ---
+                                   trades   wins losses   win%   loss%      EV  maxDD   95% CI win rate
+SYNTH1                                885    427    458   48.2%   51.8%  -0.074    67.0  [45.0%..51.5%] below
+SYNTH2                                915    453    462   49.5%   50.5%  -0.049    50.1  [46.3%..52.7%] inconclusive
+SYNTH3                                932    466    466   50.0%   50.0%  -0.040    63.0  [46.8%..53.2%] inconclusive
+SYNTH4                                912    439    473   48.1%   51.9%  -0.076    76.0  [44.9%..51.4%] below
+SYNTH5                                916    464    452   50.7%   49.3%  -0.027    64.3  [47.4%..53.9%] inconclusive
+
+### Do the two confirmation candles help? expiry 300s
+    Same sweep definition with 0, 1 and 2 confirming closes. The sets overlap (Engine 5 is a subset of the others) so the z-test is only a rough guide; read it with the intervals.
+    scope=overall  strategy=e5_base_immediate  trades=22807  win %=50.15  CI low %=49.5  CI high %=50.8  EV/trade=-0.0372  max DD=860.04  vs_breakeven=below
+    scope=overall  strategy=e5_base_plus1  trades=11437  win %=48.57  CI low %=47.66  CI high %=49.49  EV/trade=-0.0674  max DD=777.24  vs_breakeven=below
+    scope=overall  strategy=e5_continuation  trades=5556  win %=49.87  CI low %=48.56  CI high %=51.19  EV/trade=-0.0424  max DD=270.04  vs_breakeven=below
+    scope=overall  strategy=Engine 5 minus immediate (win-rate difference)  win %=-0.27  EV/trade=-0.36  vs_breakeven=z=-0.36, p=0.715 (no demonstrated difference)
+    scope=test  strategy=e5_base_immediate  trades=4521  win %=50.43  CI low %=48.97  CI high %=51.89  EV/trade=-0.0317  max DD=163.6  vs_breakeven=below
+    scope=test  strategy=e5_base_plus1  trades=2281  win %=47.44  CI low %=45.39  CI high %=49.49  EV/trade=-0.0892  max DD=221.68  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1082  win %=51.66  CI low %=48.69  CI high %=54.63  EV/trade=-0.0081  max DD=50.28  vs_breakeven=inconclusive
+    scope=test  strategy=Engine 5 minus immediate (win-rate difference)  win %=1.23  EV/trade=0.73  vs_breakeven=z=0.73, p=0.466 (no demonstrated difference)
+
+### Do the two confirmation candles help? expiry 600s
+    Same sweep definition with 0, 1 and 2 confirming closes. The sets overlap (Engine 5 is a subset of the others) so the z-test is only a rough guide; read it with the intervals.
+    scope=overall  strategy=e5_base_immediate  trades=20678  win %=49.88  CI low %=49.2  CI high %=50.57  EV/trade=-0.0422  max DD=906.24  vs_breakeven=below
+    scope=overall  strategy=e5_base_plus1  trades=11437  win %=49.35  CI low %=48.43  CI high %=50.26  EV/trade=-0.0525  max DD=606.88  vs_breakeven=below
+    scope=overall  strategy=e5_continuation  trades=5555  win %=50.42  CI low %=49.11  CI high %=51.74  EV/trade=-0.0319  max DD=186.44  vs_breakeven=below
+    scope=overall  strategy=Engine 5 minus immediate (win-rate difference)  win %=0.54  EV/trade=0.71  vs_breakeven=z=0.71, p=0.476 (no demonstrated difference)
+    scope=test  strategy=e5_base_immediate  trades=4112  win %=50.27  CI low %=48.74  CI high %=51.79  EV/trade=-0.0349  max DD=159  vs_breakeven=below
+    scope=test  strategy=e5_base_plus1  trades=2281  win %=47.44  CI low %=45.39  CI high %=49.49  EV/trade=-0.0892  max DD=225.96  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1081  win %=51.25  CI low %=48.27  CI high %=54.22  EV/trade=-0.016  max DD=36.76  vs_breakeven=inconclusive
+    scope=test  strategy=Engine 5 minus immediate (win-rate difference)  win %=0.98  EV/trade=0.57  vs_breakeven=z=0.57, p=0.566 (no demonstrated difference)
+
+### Do the two confirmation candles help? expiry 900s
+    Same sweep definition with 0, 1 and 2 confirming closes. The sets overlap (Engine 5 is a subset of the others) so the z-test is only a rough guide; read it with the intervals.
+    scope=overall  strategy=e5_base_immediate  trades=18129  win %=50.31  CI low %=49.58  CI high %=51.04  EV/trade=-0.034  max DD=661.92  vs_breakeven=below
+    scope=overall  strategy=e5_base_plus1  trades=10601  win %=49.44  CI low %=48.49  CI high %=50.39  EV/trade=-0.0508  max DD=545.64  vs_breakeven=below
+    scope=overall  strategy=e5_continuation  trades=5555  win %=49.36  CI low %=48.05  CI high %=50.68  EV/trade=-0.0523  max DD=309.32  vs_breakeven=below
+    scope=overall  strategy=Engine 5 minus immediate (win-rate difference)  win %=-0.95  EV/trade=-1.24  vs_breakeven=z=-1.24, p=0.215 (no demonstrated difference)
+    scope=test  strategy=e5_base_immediate  trades=3586  win %=50.06  CI low %=48.42  CI high %=51.69  EV/trade=-0.0389  max DD=162.16  vs_breakeven=below
+    scope=test  strategy=e5_base_plus1  trades=2096  win %=48.38  CI low %=46.24  CI high %=50.52  EV/trade=-0.0711  max DD=170.76  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1081  win %=50.42  CI low %=47.44  CI high %=53.39  EV/trade=-0.032  max DD=59.16  vs_breakeven=inconclusive
+    scope=test  strategy=Engine 5 minus immediate (win-rate difference)  win %=0.36  EV/trade=0.21  vs_breakeven=z=0.21, p=0.835 (no demonstrated difference)
+
+### Sweep continuation vs momentum-only; strong-candle patterns vs control. expiry 300s
+    e6_all3 = all three candles strong, e6_two_plus_one = two strong + one weaker, ctl_streak3 = any three same-colour candles with no body test.
+    scope=overall  strategy=e5_continuation  trades=5556  win %=49.87  CI low %=48.56  CI high %=51.19  EV/trade=-0.0424  max DD=270.04  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1082  win %=51.66  CI low %=48.69  CI high %=54.63  EV/trade=-0.0081  max DD=50.28  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_momentum  trades=6133  win %=49.81  CI low %=48.56  CI high %=51.06  EV/trade=-0.0436  max DD=277.88  vs_breakeven=below
+    scope=test  strategy=e6_momentum  trades=1182  win %=49.15  CI low %=46.31  CI high %=52  EV/trade=-0.0562  max DD=90.72  vs_breakeven=below
+    scope=overall  strategy=e6_all3  trades=1365  win %=50.4  CI low %=47.75  CI high %=53.05  EV/trade=-0.0323  max DD=50.16  vs_breakeven=inconclusive
+    scope=test  strategy=e6_all3  trades=247  win %=46.15  CI low %=40.04  CI high %=52.38  EV/trade=-0.1138  max DD=35.16  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_two_plus_one  trades=4768  win %=49.64  CI low %=48.23  CI high %=51.06  EV/trade=-0.0468  max DD=237.12  vs_breakeven=below
+    scope=test  strategy=e6_two_plus_one  trades=935  win %=49.95  CI low %=46.75  CI high %=53.15  EV/trade=-0.041  max DD=56.2  vs_breakeven=inconclusive
+    scope=overall  strategy=ctl_streak3  trades=37420  win %=50.02  CI low %=49.52  CI high %=50.53  EV/trade=-0.0395  max DD=1509.96  vs_breakeven=below
+    scope=test  strategy=ctl_streak3  trades=7444  win %=50.09  CI low %=48.96  CI high %=51.23  EV/trade=-0.0382  max DD=305.64  vs_breakeven=below
+
+### Sweep continuation vs momentum-only; strong-candle patterns vs control. expiry 600s
+    e6_all3 = all three candles strong, e6_two_plus_one = two strong + one weaker, ctl_streak3 = any three same-colour candles with no body test.
+    scope=overall  strategy=e5_continuation  trades=5555  win %=50.42  CI low %=49.11  CI high %=51.74  EV/trade=-0.0319  max DD=186.44  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1081  win %=51.25  CI low %=48.27  CI high %=54.22  EV/trade=-0.016  max DD=36.76  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_momentum  trades=4851  win %=49.25  CI low %=47.84  CI high %=50.65  EV/trade=-0.0544  max DD=271.92  vs_breakeven=below
+    scope=test  strategy=e6_momentum  trades=938  win %=50.96  CI low %=47.76  CI high %=54.15  EV/trade=-0.0216  max DD=39.2  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_all3  trades=1193  win %=47.44  CI low %=44.62  CI high %=50.28  EV/trade=-0.0891  max DD=113.96  vs_breakeven=below
+    scope=test  strategy=e6_all3  trades=221  win %=44.8  CI low %=38.38  CI high %=51.39  EV/trade=-0.1399  max DD=40.8  vs_breakeven=below
+    scope=overall  strategy=e6_two_plus_one  trades=4046  win %=49.75  CI low %=48.21  CI high %=51.29  EV/trade=-0.0447  max DD=215.04  vs_breakeven=below
+    scope=test  strategy=e6_two_plus_one  trades=790  win %=52.53  CI low %=49.05  CI high %=55.99  EV/trade=0.0086  max DD=18.64  vs_breakeven=inconclusive
+    scope=overall  strategy=ctl_streak3  trades=24980  win %=50.07  CI low %=49.45  CI high %=50.69  EV/trade=-0.0387  max DD=988  vs_breakeven=below
+    scope=test  strategy=ctl_streak3  trades=4986  win %=51.02  CI low %=49.64  CI high %=52.41  EV/trade=-0.0204  max DD=131.28  vs_breakeven=inconclusive
+
+### Sweep continuation vs momentum-only; strong-candle patterns vs control. expiry 900s
+    e6_all3 = all three candles strong, e6_two_plus_one = two strong + one weaker, ctl_streak3 = any three same-colour candles with no body test.
+    scope=overall  strategy=e5_continuation  trades=5555  win %=49.36  CI low %=48.05  CI high %=50.68  EV/trade=-0.0523  max DD=309.32  vs_breakeven=below
+    scope=test  strategy=e5_continuation  trades=1081  win %=50.42  CI low %=47.44  CI high %=53.39  EV/trade=-0.032  max DD=59.16  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_momentum  trades=4560  win %=49.32  CI low %=47.87  CI high %=50.77  EV/trade=-0.0531  max DD=263.48  vs_breakeven=below
+    scope=test  strategy=e6_momentum  trades=882  win %=51.59  CI low %=48.29  CI high %=54.87  EV/trade=-0.0095  max DD=32.76  vs_breakeven=inconclusive
+    scope=overall  strategy=e6_all3  trades=1159  win %=48.49  CI low %=45.62  CI high %=51.37  EV/trade=-0.069  max DD=86  vs_breakeven=below
+    scope=test  strategy=e6_all3  trades=215  win %=44.65  CI low %=38.16  CI high %=51.33  EV/trade=-0.1427  max DD=30.68  vs_breakeven=below
+    scope=overall  strategy=e6_two_plus_one  trades=3862  win %=49.79  CI low %=48.22  CI high %=51.37  EV/trade=-0.044  max DD=217.52  vs_breakeven=below
+    scope=test  strategy=e6_two_plus_one  trades=755  win %=53.25  CI low %=49.68  CI high %=56.78  EV/trade=0.0223  max DD=20.2  vs_breakeven=inconclusive
+    scope=overall  strategy=ctl_streak3  trades=21421  win %=49.69  CI low %=49.02  CI high %=50.36  EV/trade=-0.046  max DD=1019.76  vs_breakeven=below
+    scope=test  strategy=ctl_streak3  trades=4247  win %=50.36  CI low %=48.86  CI high %=51.87  EV/trade=-0.033  max DD=166.8  vs_breakeven=below
+
+### Engine 6 threshold grid, expiry 300s (body ratio x median multiple)
+    Every variant on every segment. Do not pick the best row by eye: use `selection`, which chooses on validation only.
+    segment=train  strategy=e6_grid_r55_m1.0  trades=5385  win %=50.08  CI low %=48.75  CI high %=51.42  EV/trade=-0.0384  max DD=220.28  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.0  trades=1747  win %=51.12  CI low %=48.77  CI high %=53.46  EV/trade=-0.0186  max DD=85.24  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.0  trades=1724  win %=49.54  CI low %=47.18  CI high %=51.89  EV/trade=-0.0489  max DD=99.36  vs_breakeven=below
+    segment=train  strategy=e6_grid_r55_m1.2  trades=4752  win %=50.59  CI low %=49.17  CI high %=52.01  EV/trade=-0.0287  max DD=151.84  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.2  trades=1557  win %=51.06  CI low %=48.58  CI high %=53.54  EV/trade=-0.0197  max DD=78.52  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.2  trades=1497  win %=48.56  CI low %=46.04  CI high %=51.1  EV/trade=-0.0676  max DD=119.76  vs_breakeven=below
+    segment=train  strategy=e6_grid_r55_m1.5  trades=3601  win %=50.79  CI low %=49.16  CI high %=52.42  EV/trade=-0.0248  max DD=120.52  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r55_m1.5  trades=1173  win %=50.72  CI low %=47.87  CI high %=53.58  EV/trade=-0.0261  max DD=54.8  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.5  trades=1128  win %=48.76  CI low %=45.85  CI high %=51.68  EV/trade=-0.0638  max DD=91.32  vs_breakeven=below
+    segment=train  strategy=e6_grid_r65_m1.0  trades=4196  win %=50.19  CI low %=48.68  CI high %=51.7  EV/trade=-0.0363  max DD=170.44  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.0  trades=1322  win %=49.47  CI low %=46.78  CI high %=52.16  EV/trade=-0.0502  max DD=89.6  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r65_m1.0  trades=1339  win %=50.19  CI low %=47.51  CI high %=52.86  EV/trade=-0.0364  max DD=68.68  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.2  trades=3752  win %=50.4  CI low %=48.8  CI high %=52  EV/trade=-0.0323  max DD=138.72  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.2  trades=1199  win %=48.62  CI low %=45.8  CI high %=51.45  EV/trade=-0.0664  max DD=100.04  vs_breakeven=below
+    segment=test  strategy=e6_grid_r65_m1.2  trades=1182  win %=49.15  CI low %=46.31  CI high %=52  EV/trade=-0.0562  max DD=90.72  vs_breakeven=below
+    segment=train  strategy=e6_grid_r65_m1.5  trades=2987  win %=50.85  CI low %=49.06  CI high %=52.64  EV/trade=-0.0236  max DD=101.32  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r65_m1.5  trades=936  win %=49.25  CI low %=46.06  CI high %=52.45  EV/trade=-0.0544  max DD=60.52  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r65_m1.5  trades=910  win %=49.45  CI low %=46.21  CI high %=52.69  EV/trade=-0.0505  max DD=67.12  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.0  trades=2655  win %=50.85  CI low %=48.95  CI high %=52.75  EV/trade=-0.0237  max DD=88.24  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.0  trades=824  win %=49.76  CI low %=46.35  CI high %=53.16  EV/trade=-0.0447  max DD=48.96  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.0  trades=833  win %=49.1  CI low %=45.72  CI high %=52.49  EV/trade=-0.0573  max DD=57.4  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.2  trades=2408  win %=51.33  CI low %=49.33  CI high %=53.32  EV/trade=-0.0145  max DD=68.88  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.2  trades=761  win %=49.01  CI low %=45.48  CI high %=52.56  EV/trade=-0.0589  max DD=51.6  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.2  trades=750  win %=48.13  CI low %=44.58  CI high %=51.71  EV/trade=-0.0758  max DD=64.8  vs_breakeven=below
+    segment=train  strategy=e6_grid_r75_m1.5  trades=1990  win %=50.8  CI low %=48.61  CI high %=53  EV/trade=-0.0246  max DD=72.2  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.5  trades=624  win %=50.64  CI low %=46.73  CI high %=54.55  EV/trade=-0.0277  max DD=30.6  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.5  trades=602  win %=47.34  CI low %=43.38  CI high %=51.33  EV/trade=-0.091  max DD=61.76  vs_breakeven=below
+
+### Engine 6 threshold grid, expiry 600s (body ratio x median multiple)
+    Every variant on every segment. Do not pick the best row by eye: use `selection`, which chooses on validation only.
+    segment=train  strategy=e6_grid_r55_m1.0  trades=4140  win %=49.81  CI low %=48.28  CI high %=51.33  EV/trade=-0.0437  max DD=193.4  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.0  trades=1349  win %=49.59  CI low %=46.93  CI high %=52.26  EV/trade=-0.0478  max DD=85.4  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.0  trades=1346  win %=50.37  CI low %=47.7  CI high %=53.04  EV/trade=-0.0329  max DD=69.56  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r55_m1.2  trades=3669  win %=49.74  CI low %=48.12  CI high %=51.36  EV/trade=-0.045  max DD=177.44  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.2  trades=1209  win %=49.63  CI low %=46.82  CI high %=52.44  EV/trade=-0.0471  max DD=82.4  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.2  trades=1185  win %=49.2  CI low %=46.36  CI high %=52.04  EV/trade=-0.0554  max DD=87.8  vs_breakeven=below
+    segment=train  strategy=e6_grid_r55_m1.5  trades=2831  win %=49.49  CI low %=47.65  CI high %=51.33  EV/trade=-0.0498  max DD=150.72  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.5  trades=917  win %=49.62  CI low %=46.39  CI high %=52.85  EV/trade=-0.0473  max DD=59.84  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.5  trades=901  win %=47.17  CI low %=43.93  CI high %=50.43  EV/trade=-0.0943  max DD=99.84  vs_breakeven=below
+    segment=train  strategy=e6_grid_r65_m1.0  trades=3296  win %=49.24  CI low %=47.54  CI high %=50.95  EV/trade=-0.0546  max DD=202.72  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.0  trades=1047  win %=48.23  CI low %=45.22  CI high %=51.26  EV/trade=-0.0739  max DD=86.04  vs_breakeven=below
+    segment=test  strategy=e6_grid_r65_m1.0  trades=1051  win %=52.05  CI low %=49.02  CI high %=55.05  EV/trade=-0.0007  max DD=28.76  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.2  trades=2956  win %=49.26  CI low %=47.46  CI high %=51.06  EV/trade=-0.0543  max DD=182.24  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.2  trades=957  win %=47.54  CI low %=44.4  CI high %=50.71  EV/trade=-0.0871  max DD=94.6  vs_breakeven=below
+    segment=test  strategy=e6_grid_r65_m1.2  trades=938  win %=50.96  CI low %=47.76  CI high %=54.15  EV/trade=-0.0216  max DD=39.2  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.5  trades=2380  win %=48.74  CI low %=46.73  CI high %=50.75  EV/trade=-0.0642  max DD=162.56  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.5  trades=749  win %=48.2  CI low %=44.64  CI high %=51.78  EV/trade=-0.0746  max DD=58.04  vs_breakeven=below
+    segment=test  strategy=e6_grid_r65_m1.5  trades=727  win %=48.56  CI low %=44.94  CI high %=52.19  EV/trade=-0.0677  max DD=66.56  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.0  trades=2142  win %=49.77  CI low %=47.65  CI high %=51.88  EV/trade=-0.0445  max DD=123.52  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r75_m1.0  trades=675  win %=48  CI low %=44.25  CI high %=51.77  EV/trade=-0.0784  max DD=63  vs_breakeven=below
+    segment=test  strategy=e6_grid_r75_m1.0  trades=677  win %=49.48  CI low %=45.73  CI high %=53.24  EV/trade=-0.0499  max DD=46.48  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.2  trades=1946  win %=50  CI low %=47.78  CI high %=52.22  EV/trade=-0.04  max DD=115.48  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.2  trades=626  win %=48.08  CI low %=44.19  CI high %=52  EV/trade=-0.0768  max DD=55.6  vs_breakeven=below
+    segment=test  strategy=e6_grid_r75_m1.2  trades=613  win %=48.61  CI low %=44.68  CI high %=52.57  EV/trade=-0.0666  max DD=50.76  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.5  trades=1622  win %=50  CI low %=47.57  CI high %=52.43  EV/trade=-0.04  max DD=80.32  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.5  trades=511  win %=49.71  CI low %=45.39  CI high %=54.03  EV/trade=-0.0456  max DD=30.52  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.5  trades=498  win %=45.38  CI low %=41.06  CI high %=49.77  EV/trade=-0.1287  max DD=69.84  vs_breakeven=below
+
+### Engine 6 threshold grid, expiry 900s (body ratio x median multiple)
+    Every variant on every segment. Do not pick the best row by eye: use `selection`, which chooses on validation only.
+    segment=train  strategy=e6_grid_r55_m1.0  trades=3849  win %=49.57  CI low %=47.99  CI high %=51.15  EV/trade=-0.0482  max DD=198.24  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.0  trades=1253  win %=48.84  CI low %=46.08  CI high %=51.61  EV/trade=-0.0622  max DD=95.36  vs_breakeven=below
+    segment=test  strategy=e6_grid_r55_m1.0  trades=1242  win %=51.93  CI low %=49.15  CI high %=54.7  EV/trade=-0.0029  max DD=38.28  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r55_m1.2  trades=3428  win %=48.92  CI low %=47.25  CI high %=50.59  EV/trade=-0.0607  max DD=220.32  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.2  trades=1124  win %=49.11  CI low %=46.2  CI high %=52.03  EV/trade=-0.0571  max DD=84.12  vs_breakeven=below
+    segment=test  strategy=e6_grid_r55_m1.2  trades=1099  win %=51.41  CI low %=48.46  CI high %=54.36  EV/trade=-0.0129  max DD=40.56  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r55_m1.5  trades=2654  win %=49.06  CI low %=47.16  CI high %=50.96  EV/trade=-0.0581  max DD=163.88  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r55_m1.5  trades=857  win %=49.71  CI low %=46.37  CI high %=53.05  EV/trade=-0.0456  max DD=54.48  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r55_m1.5  trades=841  win %=49.58  CI low %=46.21  CI high %=52.96  EV/trade=-0.048  max DD=46.64  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.0  trades=3092  win %=49.13  CI low %=47.37  CI high %=50.89  EV/trade=-0.0568  max DD=190.28  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.0  trades=977  win %=48.93  CI low %=45.8  CI high %=52.06  EV/trade=-0.0606  max DD=79.44  vs_breakeven=below
+    segment=test  strategy=e6_grid_r65_m1.0  trades=979  win %=51.89  CI low %=48.76  CI high %=55.01  EV/trade=-0.0037  max DD=34.48  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.2  trades=2780  win %=48.63  CI low %=46.78  CI high %=50.49  EV/trade=-0.0662  max DD=200.72  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.2  trades=898  win %=49.22  CI low %=45.96  CI high %=52.49  EV/trade=-0.055  max DD=71.36  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r65_m1.2  trades=882  win %=51.59  CI low %=48.29  CI high %=54.87  EV/trade=-0.0095  max DD=32.76  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r65_m1.5  trades=2241  win %=49  CI low %=46.93  CI high %=51.07  EV/trade=-0.0593  max DD=146.68  vs_breakeven=below
+    segment=validation  strategy=e6_grid_r65_m1.5  trades=706  win %=49.58  CI low %=45.9  CI high %=53.26  EV/trade=-0.0482  max DD=46.48  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r65_m1.5  trades=688  win %=49.85  CI low %=46.13  CI high %=53.58  EV/trade=-0.0428  max DD=36.4  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.0  trades=2025  win %=51.06  CI low %=48.88  CI high %=53.23  EV/trade=-0.0196  max DD=80.28  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.0  trades=636  win %=51.42  CI low %=47.53  CI high %=55.28  EV/trade=-0.0128  max DD=30.72  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.0  trades=643  win %=48.06  CI low %=44.22  CI high %=51.92  EV/trade=-0.0773  max DD=56.12  vs_breakeven=below
+    segment=train  strategy=e6_grid_r75_m1.2  trades=1841  win %=51  CI low %=48.72  CI high %=53.28  EV/trade=-0.0207  max DD=75.92  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.2  trades=592  win %=51.69  CI low %=47.67  CI high %=55.69  EV/trade=-0.0076  max DD=25.08  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.2  trades=587  win %=48.72  CI low %=44.7  CI high %=52.76  EV/trade=-0.0645  max DD=45.52  vs_breakeven=inconclusive
+    segment=train  strategy=e6_grid_r75_m1.5  trades=1539  win %=50.88  CI low %=48.38  CI high %=53.37  EV/trade=-0.0232  max DD=51.44  vs_breakeven=inconclusive
+    segment=validation  strategy=e6_grid_r75_m1.5  trades=483  win %=52.38  CI low %=47.93  CI high %=56.8  EV/trade=0.0057  max DD=14.76  vs_breakeven=inconclusive
+    segment=test  strategy=e6_grid_r75_m1.5  trades=481  win %=46.78  CI low %=42.36  CI high %=51.24  EV/trade=-0.1019  max DD=53.52  vs_breakeven=below
+
+### Threshold selection (validation only)
+    expiry 300s: e6_grid_r55_m1.0  validation EV -0.019 (1747 trades)  test EV -0.049 (1724 trades)  | chosen on validation expectancy among 9 variants; the test numbers were not used to choose. With 9 variants compared, a good test result can still be luck.
+    expiry 600s: e6_grid_r75_m1.5  validation EV -0.046 (511 trades)  test EV -0.129 (498 trades)  | chosen on validation expectancy among 9 variants; the test numbers were not used to choose. With 9 variants compared, a good test result can still be luck.
+    expiry 900s: e6_grid_r75_m1.5  validation EV +0.006 (483 trades)  test EV -0.102 (481 trades)  | chosen on validation expectancy among 9 variants; the test numbers were not used to choose. With 9 variants compared, a good test result can still be luck.
+
+Assumptions:
+  - Entry is the OPEN of the candle after the signal candle; settlement is the CLOSE of the candle that ends at entry time + expiry. No latency, slippage, requotes or broker rejections are modelled.
+  - Payout and cost are flat per trade. Real payouts differ by instrument, expiry and time of day.
+  - One trade at a time per strategy, instrument and expiry; overlapping signals are skipped and counted.
+  - Sessions are UTC hours of the entry candle: Asia 00-07, London 07-13, New York 13-21, Late 21-24.
+  - Segments are chronological per instrument (train / validation / test). Trades settling after a segment boundary are embargoed from segment statistics.
+  - Engine 5 uses the strict sweep rule (Pattern 1/2 plus wick-only); Engine 6 uses body ratio 0.65, wick ratio 0.35, 1.2x median of 20, 2 of 3 strong, weaker candle body >= 0.30 of range, combined body >= 3.0x median. The last two are my assumptions; all are configurable and untuned.
+  - Win-rate intervals are 95% Wilson intervals. "above breakeven" means the whole interval is above the break-even win rate for the chosen payout and cost.
+
+report written to docs/backtests/synthetic_no_edge.json

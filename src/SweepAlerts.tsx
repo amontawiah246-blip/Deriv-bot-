@@ -5,6 +5,7 @@ import { apiFetch } from "./api";
 
 export interface SweepAlert {
   id: number; symbol: string; name: string; market: string; tf: number; candle_time: number;
+  engine: "sweep" | "continuation" | "momentum"; trade_at_next_open: boolean;
   side: "BUY" | "SELL"; ok: boolean; block: string | null; notes: string[]; entry: number; swept_level: number;
   created: number; live: boolean;
 }
@@ -20,6 +21,7 @@ export interface SweepFeed {
   clear: () => Promise<void>;
 }
 
+export const ENGINE_LABEL: Record<SweepAlert["engine"], string> = { sweep: "Wick sweep", continuation: "Sweep continuation", momentum: "Momentum" };
 const SEEN_KEY = "qx-sweep-seen";
 const VERDICT_KEY = "qx-sweep-verdicts";
 const readNum = (k: string) => { try { return Number(localStorage.getItem(k)) || 0; } catch { return 0; } };
@@ -92,6 +94,7 @@ const hhmm = (epoch: number, tf: number) =>
 export default function SweepAlerts({ feed, http }: { feed: SweepFeed; http: string }) {
   const { alerts, state, error } = feed;
   const [filter, setFilter] = useState<"all" | "take" | "skip">("all");
+  const [engine, setEngine] = useState<"all" | SweepAlert["engine"]>("all");
   const [zoom, setZoom] = useState<SweepAlert | null>(null);
   const [verdicts, setVerdicts] = useState<Record<string, "yes" | "no">>(() => {
     try { return JSON.parse(localStorage.getItem(VERDICT_KEY) || "{}"); } catch { return {}; }
@@ -104,7 +107,7 @@ export default function SweepAlerts({ feed, http }: { feed: SweepFeed; http: str
     });
   };
 
-  const shown = alerts.filter((a) => (filter === "all" ? true : filter === "take" ? a.ok : !a.ok));
+  const shown = alerts.filter((a) => (filter === "all" ? true : filter === "take" ? a.ok : !a.ok) && (engine === "all" || a.engine === engine));
   const yes = alerts.filter((a) => verdicts[a.id] === "yes").length;
   const no = alerts.filter((a) => verdicts[a.id] === "no").length;
   const nowSec = state?.now ?? Date.now() / 1000;
@@ -114,7 +117,7 @@ export default function SweepAlerts({ feed, http }: { feed: SweepFeed; http: str
     <section className="sw">
       <div className="sw-card">
         <div className="sw-head">
-          <b>Wick sweep watch</b>
+          <b>Setup watch: sweep, continuation, momentum</b>
           <span className={`sw-dot ${state?.running ? "on" : ""}`}>{state?.running ? "Watching" : "Stopped"}</span>
         </div>
         <p className="sw-sub">
@@ -140,6 +143,13 @@ export default function SweepAlerts({ feed, http }: { feed: SweepFeed; http: str
         {([["all", "All"], ["take", "Taken"], ["skip", "Skipped"]] as const).map(([k, l]) => (
           <button key={k} className={`sw-chip ${filter === k ? "on" : ""}`} onClick={() => setFilter(k)}>{l}</button>
         ))}
+      </div>
+      <div className="sw-row sw-filter">
+        {([["all", "All engines"], ["sweep", "Sweep"], ["continuation", "Continuation"], ["momentum", "Momentum"]] as const).map(([k, l]) => (
+          <button key={k} className={`sw-chip ${engine === k ? "on" : ""}`} onClick={() => setEngine(k)}>{l}</button>
+        ))}
+      </div>
+      <div className="sw-row">
         <span className="sw-tally">Checked by you: {yes} correct, {no} wrong</span>
       </div>
 
@@ -157,12 +167,12 @@ export default function SweepAlerts({ feed, http }: { feed: SweepFeed; http: str
             <span className={`sw-side ${a.side === "BUY" ? "buy" : "sell"}`}>{a.side}</span>
             <div className="sw-title">
               <b>{a.name}</b>
-              <small>{a.symbol} · {hhmm(a.candle_time, a.tf)} · {ago(nowSec - (a.candle_time + a.tf))}{a.live ? "" : " · earlier"}</small>
+              <small>{ENGINE_LABEL[a.engine]} · {a.symbol} · {hhmm(a.candle_time, a.tf)} · {ago(nowSec - (a.candle_time + a.tf))}{a.live ? "" : " · earlier"}</small>
             </div>
             <span className={`sw-tag ${a.ok ? "take" : "skip"}`}>{a.ok ? "TAKE" : "SKIP"}</span>
           </div>
           <img className="sw-img" loading="lazy" alt={`${a.side} setup on ${a.name}`} src={`${http}/api/sweep/image/${a.id}`} onClick={() => setZoom(a)} />
-          <p className="sw-why">{a.ok ? a.notes.join(", ") || "sweep confirmed" : a.block}</p>
+          <p className="sw-why">{a.ok ? a.notes.join(", ") || "confirmed" : a.block}{a.ok && a.trade_at_next_open ? ". Trade opens on the next candle." : ""}</p>
           <div className="sw-row">
             <button className={`sw-btn ${verdicts[a.id] === "yes" ? "yes" : ""}`} onClick={() => vote(a.id, "yes")}>✓ Engine is right</button>
             <button className={`sw-btn ${verdicts[a.id] === "no" ? "no" : ""}`} onClick={() => vote(a.id, "no")}>✗ Engine is wrong</button>
